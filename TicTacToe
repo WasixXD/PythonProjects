@@ -1,0 +1,146 @@
+import colorama
+from colorama import Fore, Back, Style
+from time import sleep
+
+colorama.init(autoreset=True)
+
+
+
+def escolha(esc):#Validação entre X ou O
+    entrada = input(esc).upper().strip()[0]
+    while entrada not in "XO":
+        print(Fore.RED+"Erro"+Fore.RESET)   
+        entrada = str(input("Digite somente X ou O: ")).upper().strip()[0] 
+    global cara
+    cara = entrada
+    return Fore.CYAN+entrada+Fore.RESET
+
+#Lista pra não ocorrer erros de escolha
+lista = [[1,2 ,3],[4, 5, 6],[7, 8, 9]]
+nums = []
+cnums =[]
+tot = []
+
+def jogo():#Criador da matriz do jogo
+
+    for c in range (len(lista)):
+        for l in range (len(lista)):
+            print(f"[ {lista[c][l]} ]",end=" ")
+        print()  
+        
+def jposição(char):#Para o jogador escolher uma posição
+    n = int(input(f"Digite o número em que quer colocar o {cara}:")) 
+    nums.append(n)  
+    tot.append(n)
+    for c in range(len(lista)):
+        for l in range(len(lista)):
+            if n == lista[c][l]:
+                lista[c][l] = char
+    for c in range (len(lista)):
+        for l in range (len(lista)):
+            print(f"[ {lista[c][l]} ]",end=" ")
+        print()
+
+def pcomp(com):#Computador escolher a posição
+    from random import randint
+    n = randint(1, 9)
+    while n in nums or n in cnums: #->para não escolher os mesmos números
+        n = randint(1, 9)
+    cnums.append(n)
+    tot.append(n)
+    print(f"Escolhi o número {n}")
+    
+    for c in range(len(lista)):
+        for l in range(len(lista)):
+            if n == lista[c][l]:
+                lista[c][l] = com
+            else:
+                continue
+    for c in range(len(lista)):
+        for l in range(len(lista)):
+            print(f"[ {lista[c][l]} ]", end=" ")
+        print()
+
+
+
+
+
+print(Fore.BLUE+"-="*20+Fore.RESET)
+print("             Regras     ")
+sleep(1)
+print("1. Escolha uma "+Fore.RED+"posição"+Fore.RESET+" e ela será trocada pelo seu"+Fore.RED+" símbolo"+Fore.RESET)
+sleep(3)
+print("2. Ganha quem deixar uma "+Fore.GREEN+"linha, coluna ou horizontal"+Fore.RESET+" com seu"+Fore.RED+" símbolo"+Fore.RESET)
+sleep(3)
+print("3. Você não pode"+Fore.RED+" escolher"+Fore.RESET+" a mesma"+Fore.RED+" posição "+Fore.RESET+"que seu"+Fore.RED+" oponente"+Fore.RESET)
+print(Fore.BLUE+"-="*20+Fore.RESET)
+sleep(3)
+print('''Aqui está o tabuleiro do jogo, se divirta :)
+        [ 1 ] [ 2 ] [ 3 ]
+        [ 4 ] [ 5 ] [ 6 ]
+        [ 7 ] [ 8 ] [ 9 ]''')
+print(Fore.BLUE+"-="*20+Fore.RESET)
+jogador = escolha("Você vai querer X ou O?: ")
+
+sleep(2)
+
+#Escolha do computador
+if jogador == Fore.CYAN+"X"+Fore.RESET:
+    computador = Fore.RED+"O"+Fore.RESET
+else:
+    computador = Fore.RED+"X"+Fore.RESET
+print(f"Jogador = {jogador}\nComputador = {computador}")
+
+
+print(Fore.BLUE+"-="*20+Fore.RESET)
+sleep(2)
+
+print("Se há um"+Fore.CYAN+ " número"+Fore.RESET+" então a"+Fore.RED+ " posição"+Fore.RESET+" está vazia")
+jogo()
+vito = False
+while not vito:
+    sleep(2)
+    print(Fore.BLUE+"-="*20+Fore.RESET)
+    pcomp(computador)
+    if lista[0][0] == lista[0][1] == lista[0][2]   or lista[1][0] == lista[1][1] == lista[1][2]  or lista[2][0] == lista[2][1] == lista[2][2]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma"+Fore.RED+" linha"+Fore.RESET+ " completa")
+        break
+    elif lista[0][0] == lista[1][0] == lista[2][0] or lista[0][1] == lista[1][1] == lista[2][1] or lista[0][2] == lista[1][2] == lista[2][2]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma "+Fore.RED+ "coluna "+Fore.RESET+ "completa")
+        break
+    elif lista[0][0] == lista[1][1] == lista[2][2] or lista[0][2] == lista[1][1] == lista[2][0]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma"+Fore.RED+" horizontal"+Fore.RESET+" completa")
+        break
+    elif len(tot) == 9:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" deu"+Fore.RED+" empate!"+Fore.RESET)
+        break
+
+    print(Fore.BLUE+"-="*20+Fore.RESET)
+    jposição(jogador)
+    sleep(2)
+    
+    if lista[0][0] == lista[0][1] == lista[0][2]   or lista[1][0] == lista[1][1] == lista[1][2]  or lista[2][0] == lista[2][1] == lista[2][2]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma"+Fore.RED+" linha"+Fore.RESET+ " completa")
+        break
+    elif lista[0][0] == lista[1][0] == lista[2][0] or lista[0][1] == lista[1][1] == lista[2][1] or lista[0][2] == lista[1][2] == lista[2][2]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma "+Fore.RED+ "coluna "+Fore.RESET+ "completa")
+        break
+    elif lista[0][0] == lista[1][1] == lista[2][2] or lista[0][2] == lista[1][1] == lista[2][0]:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" alguem ganhou com uma"+Fore.RED+" horizontal"+Fore.RESET+" completa")
+        break
+    elif len(tot) == 9:
+        print(Fore.BLUE+"-="*20+Fore.RESET)
+        print(Fore.YELLOW+"Game Over!"+Fore.RESET+" deu"+Fore.RED+" empate!"+Fore.RESET)
+      
+        break
+
+    
+    
+    
