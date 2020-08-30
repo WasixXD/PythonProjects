@@ -1,0 +1,286 @@
+import colorama
+from colorama import Fore, Back, Style
+from time import sleep
+
+colorama.init()
+
+lista= [
+'''    ____
+   |    |
+   |    O
+   |   /|\               
+   |   / \        
+   |
+___|___  ''' ,     
+'''
+    ____
+   |    |
+   |    O
+   |   /|\               
+   |   /         
+___|___  ''', 
+'''
+    ____
+   |    |
+   |    O
+   |   /|\               
+   |           
+___|___  ''',
+
+'''
+    ____
+   |    |
+   |    O
+   |   /|               
+   |          
+___|___    ''',      
+
+'''
+    ____
+   |    |
+   |    O
+   |    |              
+   |           
+___|___  ''',
+'''
+    ____
+   |    |
+   |    
+   |                 
+   |           
+___|___''' 
+]
+  
+
+def escolha(msg):
+    while True:
+        entrada = input(msg)
+        if entrada == "1":
+            return int(entrada)
+        elif entrada == "2":
+            return int(entrada)
+        elif entrada == "3":
+            return int(entrada)
+        elif entrada == "4":
+            return int(entrada)
+        else:
+            print(Fore.RED+"Escolha um dos temas"+Fore.RESET)
+            continue
+
+def Animais():
+    from random import randint
+    #Variaveis para o funcionamento do jogo
+    animais = [["T","I","G","R","E"],["J","A","C","A","R","E"],["R","I","N","O","C","E","R","O","N","T","E"],["M","A","C","A","C","O"],["V","A","C","A"],["G","A","I","V","O","T","A"],["A","L","C","E"]]
+    certo = animais[randint(0, len(animais))]
+    errado = []
+    palavra = []
+    tentativas = 5
+    #Primeira forca
+    print(lista[tentativas],end=" ")
+    for letra in certo:
+        print("_",end=" ")
+        palavra.append("_")
+    print(" ")
+    
+
+    while palavra != certo:#Para gerar o jogo
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print(Fore.CYAN+"Letras erradas"+Fore.RESET)
+        for letra in errado:
+            print(Fore.GREEN+letra+Fore.RESET, end=" ")
+        print(" ")
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        chute = str(input("Chute uma letra: ")).upper().strip()[0]
+        sleep(1)
+
+        if chute in errado or chute in palavra:#Se a pessoa ja tiver digitado a letra
+            print(Fore.RED+"Você ja digitou essa letra, tente novamente"+Fore.RESET)
+            
+            continue
+
+        if chute not in certo:#Numero de tentativas
+            tentativas -= 1
+            print(Fore.RED+"Errado!"+Fore.RESET+" -1 chance")
+            errado.append(chute)
+
+        for letra in range(len(palavra)):#Para mudar de sinal para letra
+            if chute == certo[letra]:
+                palavra[letra] = chute
+
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print("O tema é"+Fore.RED+" ANIMAIS"+Fore.RESET)
+        print(lista[tentativas],end=" ") #Para mostrar a forca
+        
+
+        for letra in palavra:
+            print(letra,end=" ")#Para mostrar as letras corretas
+        sleep(2)
+        
+        if palavra == certo:#Para Ganhar
+            print()
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print("Você ganhou! Jogue novamente e veremos se tem a mesma sorte ;)")
+            break
+
+        if tentativas == 0:#para finalizar
+            print("")
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print(f"\nA palavra era ", end="")
+            for c in certo:
+                print(Fore.CYAN+c+Fore.RESET,end="")
+            print("\nFim da Rodada")
+            break
+        print()
+
+def Nomes():
+    from random import randint
+    #Variaveis para o funcionamento do jogo
+    nomes = [["J","U","L","I","A"],["G","A","B","R","I","E","L"],["G","U","I","L","H","E","R","M","E"],["F","E","R","N","A","N","D","A"],["P","E","D","R","O"],["I","V","A","N"]]
+    certo = nomes[randint(0, len(nomes))]
+    errado = []
+    palavra = []
+    tentativas = 5
+    print(lista[tentativas],end=" ")
+    for letra in certo:
+        print("_",end=" ")
+        palavra.append("_")
+    print(" ")
+    
+    while palavra != certo:#Para gerar o jogo
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print(Fore.CYAN+"Letras erradas"+Fore.RESET)
+        for letra in errado:
+            print(Fore.GREEN+letra+Fore.RESET, end=" ")
+        print(" ")
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        chute = str(input("Chute uma letra: ")).upper().strip()[0]
+        sleep(1)
+        if chute in errado or chute in palavra:
+            print(Fore.RED+"Você ja digitou essa letra, tente novamente"+Fore.RESET)
+            
+            continue
+
+        if chute not in certo:#Numero de tentativas
+            tentativas -= 1
+            print(Fore.RED+"Errado!"+Fore.RESET+ " -1 chance")
+            errado.append(chute)
+
+        for letra in range(len(palavra)):#Para mudar de sinal para letra
+            if chute == certo[letra]:
+                palavra[letra] = chute
+
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print("O tema é"+Fore.RED+" NOMES"+Fore.RESET)
+        print(lista[tentativas],end=" ") #Para mostrar a forca
+
+        
+        for letra in palavra:
+            print(letra,end=" ")#Para mostrar as letras corretas
+        sleep(2)
+        if palavra == certo:#Para Ganhar
+            print()
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print("Você ganhou! Jogue novamente e veremos se tem a mesma sorte ;)")
+            break
+
+        if tentativas == 0:#para finalizar
+            print("")
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print(f"\nA palavra era ", end="")
+            for c in certo:
+                print(Fore.CYAN+c+Fore.RESET,end="")
+            print("\nFim da Rodada")
+            break
+        print()
+
+
+def Cor():
+    from random import randint
+    #Variaveis para o funcionamento do jogo
+    cor = [["B","R","A","N","C","O"],["M","A","R","R","O","M"],["L","I","L","A","S"],["A","Z","U","L"],["P","R","E","T","O"],["V","E","R","D","E"]]
+    certo = cor[randint(0, len(cor))]
+    errado = []
+    palavra = []
+    tentativas = 5
+    print(lista[tentativas],end=" ")
+    for letra in certo:
+        print("_",end=" ")
+        palavra.append("_")
+    print(" ")
+    
+    while palavra != certo:#Para gerar o jogo
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print(Fore.CYAN+"Letras erradas"+Fore.RESET)
+        for letra in errado:
+            print(Fore.GREEN+letra+Fore.RESET, end=" ")
+        print(" ")
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        chute = str(input("Chute uma letra: ")).upper().strip()[0]
+        sleep(1)
+        
+        if chute in errado or chute in palavra:
+            print(Fore.RED+"Você ja digitou essa letra, tente novamente"+Fore.RESET)
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            continue
+
+        if chute not in certo:#Numero de tentativas
+            tentativas -= 1
+            print(Fore.RED+"Errado!"+Fore.RESET+ " -1 chance")
+            errado.append(chute)
+
+        for letra in range(len(palavra)):#Para mudar de sinal para letra
+            if chute == certo[letra]:
+                palavra[letra] = chute
+
+        print(Fore.BLUE+"~-"*20+Fore.RESET)
+        print("O tema é"+Fore.RED+" CORES"+Fore.RESET)
+        print(lista[tentativas],end=" ") #Para mostrar a forca
+
+        for letra in palavra:
+            print(letra,end=" ")#Para mostrar as letras corretas
+        sleep(2)
+        if palavra == certo:#Para Ganhar
+            print()
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print("Você ganhou! Jogue novamente e veremos se tem a mesma sorte ;)")
+            break
+
+        if tentativas == 0:#para finalizar
+            print("")
+            print(Fore.BLUE+"~-"*20+Fore.RESET)
+            print(f"\nA palavra era ", end="")
+            for c in certo:
+                print(Fore.CYAN+c+Fore.RESET,end="")
+            print("\nFim da Rodada")
+            break
+        print()
+
+
+    
+
+print(Fore.BLUE+"~-"*20+Fore.RESET)
+print("Jogo da Forca".center(40))
+
+
+while True:
+    print(Fore.BLUE+"~-"*20+Fore.RESET)
+    print("1.  Nomes")
+    print("2.  Animais")
+    print("3.  Cores")
+    print("4.  Sair")
+    sleep(2)
+    print(Fore.BLUE+"~-"*20+Fore.RESET)
+    opção = escolha("Escolha um tema: ")
+    sleep(1)
+    if opção == 1:
+        Nomes()
+       
+    elif opção == 2:
+        Animais()
+        
+    elif opção == 3:
+        Cor()
+    
+    elif opção == 4:
+        break
+
