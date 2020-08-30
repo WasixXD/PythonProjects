@@ -1,0 +1,102 @@
+from time import sleep
+import colorama
+from colorama import Fore, Back, Style
+colorama.init()
+
+cesar = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+cripto = []
+descripto = []
+noChave = []
+
+
+def criptografar(mensagem, roda):
+    for letra in mensagem:
+        if letra == " ":
+            cripto.append(" ")
+        else:
+            cripto.append(cesar[(roda + cesar.index(letra)) % 26])
+    return Fore.RED+"".join(cripto)+Fore.RESET
+
+
+
+def descriptografar(mensagem, roda):
+    for letra in mensagem:
+        if letra == " ":
+            descripto.append(" ")
+        else:
+            descripto.append(cesar[(-roda +cesar.index(letra)) % 26])
+    return Fore.CYAN+"".join(descripto)+Fore.RESET
+
+
+
+def semChave(mensagem, num):
+    possiveis = {}
+    letra = ""
+    for c in range(0 , num):
+        for letra in mensagem:
+            if letra == " ":
+                noChave.append(" ")
+            else:
+                men = (cesar[(-c + cesar.index(letra)) % 26])
+                noChave.append("".join(men))
+
+        possiveis[c] = noChave.copy()
+        noChave.clear()
+    return possiveis
+
+
+
+def animal(msg):#Animação   
+    print(msg, end="")
+    for c in range(0, 3):
+        print(".",end="",flush=True)
+        sleep(1)
+    print()
+
+
+
+print("Olá este é um algoritmo de cifra de césar")
+while True:
+    print('''[ 1 ] se quiser criptografar uma mensagem
+[ 2 ] se quiser descriptografar uma mensagem
+[ 3 ] se quiser sair''')
+    opcao = int(input(">>> "))
+    print("~~"*15)
+    sleep(2)
+    if(opcao == 1):
+        print("Diga a mensagam:")
+        mensa = input(">>> ").lower()
+        print("Com qual chave: ")
+        subs = int(input(">>> "))
+        animal("Criptografando")
+        print("Shhhhhhhh a mensagem é:")
+        print(criptografar(mensa, subs))
+        print("~~"*15)
+    
+
+    elif(opcao == 2):
+        print("Mensagem a ser descriptografada: ")
+        mensa = input(">>> ").lower()
+        sn = input("Sabe quantas chaves?: ")
+        if(sn in "Ss"):       
+            print("Com qual chave: ")
+            subs = int(input(">>> "))
+            animal("Descriptografando")
+            print("A mensagem descriptografada é: ")
+            print(descriptografar(mensa, subs))
+        else:
+            print("Com quantas chaves quer tentar?: ")
+            subs = int(input(">>> "))
+            animal("Descriptografando")
+            print("As possiveis mensagens são: ")
+            possivei =semChave(mensa, subs)
+            for c in possivei.values():
+                print(c)
+        print("~~"*15)
+
+    elif(opcao == 3):
+        break
+    sleep(2)    
+
+print("Volte sempre, e guarde bem suas mensagens")
